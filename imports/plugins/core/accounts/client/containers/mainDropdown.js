@@ -70,7 +70,6 @@ function logOut() {
  * @returns {undefined}
  */
 function createProduct() {
-  Reaction.setAdminViewAs("administrator");
   Meteor.call("products/createProduct", (error, productId) => {
     if (error || !productId) {
       throw new ReactionError("create-product-error", error);

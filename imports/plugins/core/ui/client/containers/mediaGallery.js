@@ -225,20 +225,14 @@ function sortMedia(media) {
 }
 
 /**
- * @param {Object} props Incoming props
- * @param {Function} onData Callback
+ * @private
+ * @param {Object} props Props
+ * @param {Function} onData Call this to update props
  * @returns {undefined}
  */
 function composer(props, onData) {
-  let editable;
-  if (Reaction.isPreview()) {
-    editable = false;
-  } else {
-    editable = Reaction.hasPermission(props.permission || ["createProduct"]);
-  }
-
   onData(null, {
-    editable,
+    editable: Reaction.hasPermission(props.permission || ["createProduct"]),
     media: sortMedia(props.media)
   });
 }

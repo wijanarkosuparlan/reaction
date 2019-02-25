@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import { Components, registerComponent, composeWithTracker } from "@reactioncommerce/reaction-components";
 import { Reaction } from "/client/api";
 
-
 class EditContainer extends Component {
   handleEditButtonClick = (event) => {
     const { props } = this;
@@ -128,15 +127,14 @@ EditContainer.propTypes = {
 };
 
 /**
- * @param {Object} props Incoming props
- * @param {Function} onData Callback
+ * @private
+ * @param {Object} props Props
+ * @param {Function} onData Call this to update props
  * @returns {undefined}
  */
 function composer(props, onData) {
   let hasPermission;
-  const isPreview = Reaction.isPreview();
-
-  if (props.disabled === true || isPreview) {
+  if (props.disabled === true) {
     hasPermission = false;
   } else {
     hasPermission = Reaction.hasPermission(props.permissions);

@@ -661,50 +661,6 @@ export default {
   },
 
   /**
-   * @param {String} value New `viewAs` value
-   * @returns {undefined}
-   */
-  setAdminViewAs(value) {
-    const packageSettings = store.get("reaction-dashboard") || {};
-    packageSettings.viewAs = value;
-    store.set("reaction-dashboard", packageSettings);
-
-    if (value === "customer") {
-      this.hideActionView();
-    }
-
-    // Cause `Reaction.isPreview` calls to rerun
-    getDep("reaction-dashboard.viewAs").changed();
-  },
-
-  /**
-   * @summary Toggle preview mode on or off. Applies only to admins.
-   * @returns {undefined}
-   */
-  togglePreviewMode() {
-    const packageSettings = store.get("reaction-dashboard") || {};
-    if (packageSettings.viewAs === "customer") {
-      this.setAdminViewAs("administrator");
-    } else {
-      this.setAdminViewAs("customer");
-    }
-  },
-
-  /**
-   * @name isPreview
-   * @method
-   * @memberof Core/Client
-   * @returns {Boolean} True if viewing the admin dashboard as a customer
-   */
-  isPreview() {
-    // Make this reactive
-    getDep("reaction-dashboard.viewAs").depend();
-
-    const packageSettings = store.get("reaction-dashboard") || {};
-    return packageSettings.viewAs === "customer";
-  },
-
-  /**
    * @name getPackageSettings
    * @method
    * @memberof Core/Client

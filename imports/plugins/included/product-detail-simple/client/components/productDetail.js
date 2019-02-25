@@ -45,7 +45,6 @@ ProductDetail.propTypes = {
   onCartQuantityChange: PropTypes.func,
   onDeleteProduct: PropTypes.func,
   onProductFieldChange: PropTypes.func,
-  onViewContextChange: PropTypes.func,
   priceRange: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   product: PropTypes.object,
   socialComponent: PropTypes.node,

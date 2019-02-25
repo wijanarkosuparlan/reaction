@@ -6,7 +6,6 @@ import ToolbarContainer from "/imports/plugins/core/dashboard/client/containers/
 import Toolbar from "/imports/plugins/core/dashboard/client/components/toolbar";
 import { ActionViewContainer, PackageListContainer } from "/imports/plugins/core/dashboard/client/containers";
 import { ActionView, ShortcutBar } from "/imports/plugins/core/dashboard/client/components";
-import { Reaction } from "/client/api";
 import Dashboard from "/imports/client/ui/layouts/Dashboard";
 
 const ConnectedToolbarComponent = ToolbarContainer(Toolbar);
@@ -53,16 +52,6 @@ class App extends Component {
     return currentRoute && currentRoute.options && currentRoute.options.meta && currentRoute.options.meta.noAdminControls;
   }
 
-  handleViewContextChange = (event, value) => {
-    Reaction.setAdminViewAs(value);
-  }
-
-  handleKeyDown = (event) => {
-    if (event.altKey && event.keyCode === 69) {
-      Reaction.togglePreviewMode();
-    }
-  }
-
   renderAdminApp() {
     const pageClassName = classnames({
       "admin": true,
@@ -77,12 +66,11 @@ class App extends Component {
     return (
       <div
         style={styles.adminApp}
-        onKeyDown={this.handleKeyDown}
         role="presentation"
       >
         <div className={pageClassName} id="reactionAppContainer" style={styles.adminContentContainer}>
           <div className="reaction-toolbar">
-            <ConnectedToolbarComponent handleViewContextChange={this.handleViewContextChange} data={routeData} />
+            <ConnectedToolbarComponent data={routeData} />
           </div>
           <div style={styles.scrollableContainer}>
             <Switch>
@@ -110,7 +98,6 @@ class App extends Component {
 
     const { currentRoute } = this.props;
     const layout = currentRoute && currentRoute.route && currentRoute.route.options && currentRoute.route.options.layout;
-
     if (this.isAdminApp && layout !== "printLayout" && !this.noAdminControls) {
       if (currentRoute.route.path.startsWith("/operator")) {
         return this.renderOperatorApp();

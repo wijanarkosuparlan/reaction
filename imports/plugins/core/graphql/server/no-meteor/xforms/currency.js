@@ -2,8 +2,8 @@ import { toFixed } from "accounting-js";
 import { assoc, compose, map, toPairs } from "ramda";
 import ReactionError from "@reactioncommerce/reaction-error";
 import Logger from "@reactioncommerce/logger";
-import CurrencyDefinitions from "/imports/plugins/core/core/lib/CurrencyDefinitions";
 import { namespaces } from "@reactioncommerce/reaction-graphql-utils";
+import CurrencyDefinitions from "/imports/utils/CurrencyDefinitions";
 import getDisplayPrice from "/imports/plugins/core/catalog/server/no-meteor/utils/getDisplayPrice";
 import { assocInternalId, assocOpaqueId, decodeOpaqueIdForNamespace, encodeOpaqueId } from "./id";
 
@@ -74,7 +74,7 @@ export async function xformCurrencyExchangePricing(pricing, currencyCode, contex
   // rate may be undefined if Open Exchange Rates or an equivalent service is not configured properly.
   if (typeof rate !== "number") {
     if (currencyCode !== shop.currency) {
-      Logger.warn("Currency exchange rates are not available. Exchange rate fetching may not be configured.");
+      Logger.debug("Currency exchange rates are not available. Exchange rate fetching may not be configured.");
       return null;
     }
 
