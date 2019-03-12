@@ -21,6 +21,7 @@ export default async function catalogItems(context, { shopIds, tagIds } = {}) {
 
   const query = {
     "product.isDeleted": { $ne: true },
+    "product.isSoldOut": { $ne: true },
     "product.isVisible": true
   };
 
