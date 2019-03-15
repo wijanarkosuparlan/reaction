@@ -81,6 +81,8 @@ export default {
   Packages: {},
 
   registerPackage(packageInfo) {
+    Logger.debug(`Registering package ${packageInfo.name}`);
+
     // Mutate globals with package info
     if (packageInfo.graphQL) {
       if (packageInfo.graphQL.resolvers) {
