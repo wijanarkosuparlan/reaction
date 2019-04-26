@@ -101,7 +101,7 @@ export default function createShop(shopAdminUserId, partialShopData) {
   }
 
   const currentUser = Meteor.users.findOne({ _id: userId });
-  const currentAccount = Accounts.findOne({ _id: currentUser._id });
+  const currentAccount = Accounts.findOne({ userId });
   if (!currentUser) {
     throw new ReactionError("server-error", "Unable to create shop without a user");
   }
@@ -112,7 +112,7 @@ export default function createShop(shopAdminUserId, partialShopData) {
   // Only marketplace owners can create shops for others
   if (hasPrimaryShopOwnerPermission) {
     shopUser = Meteor.users.findOne({ _id: shopAdminUserId }) || currentUser;
-    shopAccount = Accounts.findOne({ _id: shopAdminUserId }) || currentAccount;
+    shopAccount = Accounts.findOne({ userId: shopAdminUserId }) || currentAccount;
   }
 
   const primaryShopId = Reaction.getPrimaryShopId();
