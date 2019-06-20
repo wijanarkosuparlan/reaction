@@ -372,17 +372,18 @@ workflows:
   version: 2
   start_server:
     jobs:
+      - build
       - docker-build:
-        context: reaction-build-read
-        requires:
-          - snyk-security
-      - start-server:
-        requires:
-          - docker-build
+          context: reaction-build-read
+          requires:
+            - snyk-security
       - snyk-security:
-        context: reaction-validation
-        requires:
-          - build
+          context: reaction-validation
+          requires:
+            - build
+      - start-server:
+          requires:
+            - docker-build
   build_and_test:
     jobs:
       - build
