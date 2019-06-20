@@ -380,9 +380,9 @@ workflows:
         requires:
           - docker-build
       - snyk-security:
-          context: reaction-validation
-          requires:
-            - build
+        context: reaction-validation
+        requires:
+          - build
   build_and_test:
     jobs:
       - build
