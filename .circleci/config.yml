@@ -199,6 +199,9 @@ jobs:
             - ${GLOBAL_CACHE_VERSION}-node-modules-{{ .Branch }}
             - ${GLOBAL_CACHE_VERSION}-node-modules-master
       - run:
+        name: Console Test
+        command: node -pe "console.log('hi')"
+      - run:
           name: Run Lint
           command: |
             npm run lint -- --quiet
